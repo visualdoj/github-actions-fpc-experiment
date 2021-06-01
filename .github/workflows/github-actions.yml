@@ -22,6 +22,7 @@ jobs:
           fpc hello.pas
       - name: Running the program
         run: |
+          cd ${{ github.workspace }}/src
           ./hello
       - run: echo "🍏 This job's status is ${{ job.status }}."
   GitHub-Actions-Windows:
