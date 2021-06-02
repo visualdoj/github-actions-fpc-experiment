@@ -2,7 +2,10 @@ name: GitHub Actions For Free Pascal Program
 on: [push]
 jobs:
   GitHub-Actions-Linux:
-    runs-on: [ubuntu-latest, macos-latest]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
 
