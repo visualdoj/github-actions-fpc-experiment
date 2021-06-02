@@ -52,7 +52,7 @@ jobs:
       - name: Running the program
         run: |
           cd ${{ github.workspace }}/src
-          hello.exe
+          .\hello.exe
 
       - name: List files in the repository
         run: |
