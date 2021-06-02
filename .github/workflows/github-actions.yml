@@ -33,15 +33,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - name: Caching Free Pascal Compiler
-        uses: actions/cache@v2
-        id: cache_fpc_installation
-        with:
-          key: cache_fpc_installation
-          path: .fpc/release_3_2_2
-
       - name: Setup Free Pascal Compiler
-        if: steps.cache_fpc_installation.outputs.cache-hit != 'true'
         uses: visualdoj/setup-fpc@v0.1.9-beta
 
       - name: Compiling the program
