@@ -25,6 +25,7 @@ jobs:
           cd ${{ github.workspace }}/src
           ./hello
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
   GitHub-Actions-Windows:
     runs-on: windows-latest
     steps:
@@ -58,7 +59,7 @@ jobs:
 
       - name: Running the program
         working-directory: ${{ github.workspace }}/src
-        run: .\hello.exe
+        run: ./hello
 
       - name: List files in the repository
         run: ls ${{ github.workspace }}
