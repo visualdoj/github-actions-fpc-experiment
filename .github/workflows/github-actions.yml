@@ -42,7 +42,7 @@ jobs:
 
       - name: Setup Free Pascal Compiler
         if: steps.cache_fpc_installation.outputs.cache-hit != 'true'
-        uses: visualdoj/setup-fpc@v0.1.3-beta
+        uses: visualdoj/setup-fpc@v0.1.4-beta
 
       - name: Compiling the program
         run: |
