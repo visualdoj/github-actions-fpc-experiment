@@ -53,16 +53,14 @@ jobs:
         shell: powershell
 
       - name: Compiling the program
-        run: |
-          cd ${{ github.workspace }}/src
-          fpc hello.pas
+        working-directory: ${{ github.workspace }}/src
+        run: fpc hello.pas
 
       - name: Running the program
-        run: |
-          cd ${{ github.workspace }}/src
-          .\hello.exe
+        working-directory: ${{ github.workspace }}/src
+        run: .\hello.exe
 
       - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
+        run: ls ${{ github.workspace }}
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
