@@ -42,12 +42,12 @@ jobs:
 
       - name: Setup Free Pascal Compiler
         if: steps.cache_fpc_installation.outputs.cache-hit != 'true'
-        uses: visualdoj/setup-fpc@v0.1.8-beta
+        uses: visualdoj/setup-fpc@v0.1.9-beta
 
       - name: Compiling the program
         run: |
           cd ${{ github.workspace }}/src
-          ${{ github.workspace }}/.fpc/release_3_2_2/bin/i386-win32/fpc.exe hello.pas
+          fpc hello.pas
 
       - name: Running the program
         run: |
