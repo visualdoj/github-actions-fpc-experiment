@@ -2,28 +2,28 @@ name: GitHub Actions For Free Pascal Program
 on: [push]
 jobs:
   GitHub-Actions-Linux:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, macos-latest]
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
       - name: Check out repository code
         uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - name: Installing FPC
+
+      - name: Setup Free Pascal Compiler
         run: sudo apt-get install fpc
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
+
       - name: Compiling the program
-        run: |
-          cd ${{ github.workspace }}/src
-          fpc hello.pas
+        working-directory: ${{ github.workspace }}/src
+        run: fpc hello.pas
+
       - name: Running the program
-        run: |
-          cd ${{ github.workspace }}/src
-          ./hello
+        working-directory: ${{ github.workspace }}/src
+        run: ./hello
+
+      - name: List files in the repository
+        working-directory: ${{ github.workspace }}/src
+        run: ls ${{ github.workspace }}
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
   GitHub-Actions-Windows:
