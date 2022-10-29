@@ -1,70 +1,17 @@
 name: GitHub Actions For Free Pascal Program
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   GitHub-Actions:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - uses: actions/checkout@v2
 
-      - name: Check out repository code
-        uses: actions/checkout@v2
+      - uses: visualdoj/setup-fpc@main
 
-      - name: Setup Free Pascal Compiler
-        run: sudo apt-get install fpc
+      - working-directory: ${{ github.workspace }}/src
+        run: fpc hello.pas -ohello.exe
 
-      - name: Compiling the program
-        working-directory: ${{ github.workspace }}/src
-        run: fpc hello.pas
-
-      - name: Running the program
-        working-directory: ${{ github.workspace }}/src
-        run: ./hello
-
-      - name: List files in the repository
-        working-directory: ${{ github.workspace }}/src
-        run: ls ${{ github.workspace }}
-
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-
-  GitHub-Actions-Windows:
-    runs-on: windows-latest
-    steps:
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-
-      - name: Check out repository code
-        uses: actions/checkout@v2
-
-      - name: Caching Free Pascal Compiler
-        uses: actions/cache@v2
-        id: cache_fpc_installation_path
-        with:
-          key: cache_fpc_installation_path
-          path: .fpc/release_3_2_2
-
-      - name: Setup Free Pascal Compiler
-        if: steps.cache_fpc_installation_path.outputs.cache-hit != 'true'
-        uses: visualdoj/setup-fpc@v0.1.11-beta
-
-      # We need this step in case if previous step skipped due to caching
-      # Caching cannot be moved to the setup-fpc action because of lack of
-      # condition supporting in composite actions
-      # See https://github.com/actions/runner/issues/646 for details
-      - name: Update PATH
-        run: echo ${{ github.workspace }}\.fpc\release_3_2_2\bin\i386-win32 | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-        shell: powershell
-
-      - name: Compiling the program
-        working-directory: ${{ github.workspace }}/src
-        run: fpc hello.pas
-
-      - name: Running the program
-        working-directory: ${{ github.workspace }}/src
-        run: ./hello
-
-      - name: List files in the repository
-        run: ls ${{ github.workspace }}
-
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: ${{ github.workspace }}/hello.exe
