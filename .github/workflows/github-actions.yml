@@ -19,4 +19,4 @@ jobs:
       - working-directory: ${{ github.workspace }}/src
         run: fpc @$PPC_CONFIG_PATH hello.pas -ohello.exe
 
-      - run: ${{ github.workspace }}/hello.exe
+      - run: ${{ github.workspace }}/src/hello.exe
