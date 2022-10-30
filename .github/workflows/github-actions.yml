@@ -16,7 +16,7 @@ jobs:
 
       - run: echo ${{ env.FPC_INSTALLED_DIR }}
 
-      - run: cat  ${{ env.PPC_CONFIG_PATH }}
+      - run: cat  "${{ env.PPC_CONFIG_PATH }}/fpc.cfg"
 
       - working-directory: ${{ github.workspace }}/src
         run: fpc hello.pas
