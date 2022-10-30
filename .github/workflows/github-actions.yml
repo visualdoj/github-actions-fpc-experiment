@@ -12,6 +12,8 @@ jobs:
 
       - uses: visualdoj/setup-fpc@main
 
+      - run: echo $PPC_CONFIG_PATH
+
       - working-directory: ${{ github.workspace }}/src
         run: fpc hello.pas -ohello.exe
 
